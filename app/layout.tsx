@@ -12,7 +12,7 @@ const LocaleLayout = ({
   return (
     <html lang={locale ?? 'zh-cn'} className="h-full">
       <body className="h-full">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-hidden">
           <div className="w-screen h-screen min-w-[300px]">
             {children}
           </div>

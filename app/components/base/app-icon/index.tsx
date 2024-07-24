@@ -8,6 +8,7 @@ export type AppIconProps = {
   icon?: string
   background?: string
   className?: string
+  src: string // 添加src属性
 }
 
 const AppIcon: FC<AppIconProps> = ({
@@ -15,6 +16,7 @@ const AppIcon: FC<AppIconProps> = ({
   rounded = false,
   background,
   className,
+  src = '/favicon.ico', // 解构src属性
 }) => {
   return (
     <span
@@ -28,7 +30,7 @@ const AppIcon: FC<AppIconProps> = ({
         background,
       }}
     >
-      👨‍🎓
+      <img src={src} alt="App Icon" className={style.image} /> {/* 使用img元素 */}
     </span>
   )
 }

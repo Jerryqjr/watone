@@ -1,6 +1,6 @@
 .answerIcon {
   position: relative;
-  background: url(../../../public/favicon.ico);
+  background: url(./icons/woman.png);
   background-size: 30px 30px;
   background-repeat: no-repeat;
 }

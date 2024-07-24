@@ -610,7 +610,7 @@ const Main: FC = () => {
     return <Loading type='app' />
 
   return (
-    <div className='bg-gray-100'>
+    <div className='bg-transparent'>
       <Header
         title={APP_INFO.title}
         isMobile={isMobile}

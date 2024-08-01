@@ -76,6 +76,7 @@ const Main: FC = () => {
     setCurrInputs,
     setNewConversationInfo,
     setExistConversationInfo,
+    deleteConversation,
   } = useConversation()
 
   const [conversationIdChangeBecauseOfNew, setConversationIdChangeBecauseOfNew, getConversationIdChangeBecauseOfNew] = useGetState(false)
@@ -599,6 +600,7 @@ const Main: FC = () => {
         onCurrentIdChange={handleConversationIdChange}
         currentId={currConversationId}
         copyRight={APP_INFO.copyright || APP_INFO.title}
+        onDelete={deleteConversation} // 传入 deleteConversation 函数
       />
     )
   }

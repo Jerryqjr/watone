@@ -47,6 +47,11 @@ function useConversation() {
   const [existConversationInfo, setExistConversationInfo] = useState<ConversationInfoType | null>(null)
   const currConversationInfo = isNewConversation ? newConversationInfo : existConversationInfo
 
+  // 删除对话项的函数
+  const deleteConversation = (id: string) => {
+    setConversationList(prevList => prevList.filter(item => item.id !== id))
+  }
+
   return {
     conversationList,
     setConversationList,
@@ -63,6 +68,7 @@ function useConversation() {
     currConversationInfo,
     setNewConversationInfo,
     setExistConversationInfo,
+    deleteConversation,
   }
 }
 

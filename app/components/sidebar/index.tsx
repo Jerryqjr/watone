@@ -33,10 +33,7 @@ const Sidebar: FC<ISidebarProps> = ({
 }) => {
   const { t } = useTranslation()
   const handleDelete = (id: string) => {
-    // 假设 list 是由 props 传入的，并且使用了父组件的状态管理
-    // 调用父组件的删除方法，或其他处理方式
-    console.log('Deleting conversation with id:', id)
-    // 这里你可以调用一个回调函数通知父组件删除操作，例如:
+    // console.log('Deleting conversation with id:', id)
     onDelete(id)
   }
   return (

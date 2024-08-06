@@ -116,6 +116,16 @@ const Chat: FC<IChatProps> = ({
       e.preventDefault()
     }
   }
+  const suggestions = [
+    { text: '华通云业务?' },
+    { text: '华通云GPU租赁价格' },
+    { text: '华通云智能体介绍' },
+    { text: '浙大网新介绍' },
+  ]
+
+  const handleClick = (text: string) => {
+    setQuery(prevQuery => `${prevQuery} ${text}`)
+  }
 
   return (
     <div className={cn(!feedbackDisabled && 'px-3.5', 'h-full')}>
@@ -156,15 +166,14 @@ const Chat: FC<IChatProps> = ({
                 <div className={`${s.line} grow`}></div>
               </div>
               <div className={`${s.suggestionList} flex flex-wrap justify-center items-center`}>
-                <div className="mb-2 mr-2 last:mr-0 px-3 py-[5px] bg-white text-primary-600 text-xs font-medium border-solid border border-gray-200 rounded-lg cursor-pointer hover:shadow-sm hover:border-gray-300 ">
-                  华通云业务?
-                </div>
-                <div className="mb-2 mr-2 last:mr-0 px-3 py-[5px] bg-white text-primary-600 text-xs font-medium border-solid border border-gray-200 rounded-lg cursor-pointer hover:shadow-sm hover:border-gray-300 ">
-                  华通云GPU租赁价格
-                </div>
-                <div className="mb-2 mr-2 last:mr-0 px-3 py-[5px] bg-white text-primary-600 text-xs font-medium border-solid border border-gray-200 rounded-lg cursor-pointer hover:shadow-sm hover:border-gray-300 ">
-                  华通云智能体介绍
-                </div>
+                {suggestions.map((suggestion, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleClick(suggestion.text)}
+                    className="mb-2 mr-2 last:mr-0 px-3 py-[5px] bg-white text-primary-600 text-xs font-medium border-solid border border-gray-200 rounded-lg cursor-pointer hover:shadow-sm hover:border-gray-300">
+                    {suggestion.text}
+                  </button>
+                ))}
               </div>
             </div>
 

@@ -7,6 +7,7 @@ import Textarea from 'rc-textarea'
 import s from './style.module.css'
 import Answer from './answer'
 import Question from './question'
+import { suggestions as initialSuggestions } from './suggestions'
 import type { FeedbackFunc } from './type'
 import type { ChatItem, VisionFile, VisionSettings } from '@/types/app'
 import { TransferMethod } from '@/types/app'
@@ -116,18 +117,27 @@ const Chat: FC<IChatProps> = ({
       e.preventDefault()
     }
   }
-  const suggestions = [
-    { text: '公司在算力合作上如何考虑的？' },
-    { text: '公司在算力业务上有哪些核心能力？' },
-    { text: '公司有哪些落地的ai/大模型应用？' },
-  ]
+  // 点击问题时将问题填入query
   const handleClick = (text: string) => {
     setQuery(prevQuery => `${prevQuery} ${text}`)
   }
+  // 展开/收起"试着问问"
   const [option, setOption] = useState(true)
   const toggleOption = () => {
     setOption(prevOption => !prevOption)
   }
+
+  // 重排问题
+  const getRandomQuestions = (suggestions, count = 3) => {
+    const shuffled = suggestions.sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, count)
+  }
+  const [suggestions, setSuggestions] = useState(getRandomQuestions(initialSuggestions, initialSuggestions.length))
+
+  useEffect(() => {
+    if (isResponsing)
+      setSuggestions(getRandomQuestions(initialSuggestions))
+  }, [isResponsing])
 
   return (
     <div className={cn(!feedbackDisabled && 'px-3.5', 'h-full')}>
@@ -179,7 +189,7 @@ const Chat: FC<IChatProps> = ({
                   <div className={`${s.line} grow`}></div>
                 </div>
                 <div className={`${s.suggestionList} flex flex-wrap justify-center items-center`}>
-                  {suggestions.map((suggestion, index) => (
+                  {suggestions.slice(0, 3).map((suggestion, index) => (
                     <button
                       key={index}
                       onClick={() => handleClick(suggestion.text)}

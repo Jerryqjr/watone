@@ -132,3 +132,7 @@ export type AnnotationReply = {
   annotation_id: string
   annotation_author_name: string
 }
+
+export type suggestions = {
+  text: string
+}

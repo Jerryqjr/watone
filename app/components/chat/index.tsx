@@ -117,10 +117,9 @@ const Chat: FC<IChatProps> = ({
     }
   }
   const suggestions = [
-    { text: '华通云业务?' },
-    { text: '华通云GPU租赁价格' },
-    { text: '华通云智能体介绍' },
-    { text: '浙大网新介绍' },
+    { text: '公司在算力合作上如何考虑的？' },
+    { text: '公司在算力业务上有哪些核心能力？' },
+    { text: '公司有哪些落地的ai/大模型应用？' },
   ]
 
   const handleClick = (text: string) => {

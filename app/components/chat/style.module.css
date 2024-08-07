@@ -85,9 +85,15 @@
   background: linear-gradient(270deg, rgba(243, 244, 246, 0) 0%, rgb(243, 244, 246) 100%);
 }
 
-.suggestSection {}
+.downIcon {
+  background: url(./icons/down.svg) center center no-repeat;
+  background-size: contain;
+}
 
-.suggestionList {}
+.upIcon {
+  background: url(./icons/up.svg) center center no-repeat;
+  background-size: contain;
+}
 
 .starIcon {
   background: url(./icons/star.svg) center center no-repeat;

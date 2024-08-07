@@ -1,6 +1,6 @@
 'use client'
 import type { FC } from 'react'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
 import Textarea from 'rc-textarea'
@@ -121,9 +121,12 @@ const Chat: FC<IChatProps> = ({
     { text: '公司在算力业务上有哪些核心能力？' },
     { text: '公司有哪些落地的ai/大模型应用？' },
   ]
-
   const handleClick = (text: string) => {
     setQuery(prevQuery => `${prevQuery} ${text}`)
+  }
+  const [option, setOption] = useState(true)
+  const toggleOption = () => {
+    setOption(prevOption => !prevOption)
   }
 
   return (
@@ -155,26 +158,37 @@ const Chat: FC<IChatProps> = ({
       {
         !isHideSendInput && (
           <div className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0', 'w-4/5 mx-auto')}>
-            <div className={`${s.suggestSection}`}>
+
+            {!option && (<div className={`${s.suggestSection}`}>
               <div className="flex items-center mb-2.5 py-2">
                 <div className={`${s.line} grow`}></div>
-                <div className="shrink-0 flex items-center px-3 text-gray-500">
-                  <div className={`${s.starIcon} w-3 h-3 rounded-md mr-1`}></div>
-                  <span className="text-xs text-gray-500 font-medium">{t('app.chat.tryToAsk')}</span>
-                </div>
+                <button onClick={toggleOption} className={`${s.upIcon} w-4 h-4 ml-20`}></button>
                 <div className={`${s.line} grow`}></div>
               </div>
-              <div className={`${s.suggestionList} flex flex-wrap justify-center items-center`}>
-                {suggestions.map((suggestion, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleClick(suggestion.text)}
-                    className="mb-2 mr-2 last:mr-0 px-3 py-[5px] bg-white text-primary-600 text-xs font-medium border-solid border border-gray-200 rounded-lg cursor-pointer hover:shadow-sm hover:border-gray-300">
-                    {suggestion.text}
-                  </button>
-                ))}
-              </div>
-            </div>
+            </div>)}
+            {option && !isResponsing && (
+              <div className={`${s.suggestSection}`}>
+                <div className="flex items-center mb-2.5 py-2">
+                  <div className={`${s.line} grow`}></div>
+                  <div className="shrink-0 flex items-center px-3 text-gray-500">
+                    <div className={`${s.starIcon} w-3 h-3 rounded-md mr-1`}></div>
+                    <span className="text-xs text-gray-500 font-medium">{t('app.chat.tryToAsk')}</span>
+                    <button onClick={toggleOption}
+                      className={`${s.downIcon} w-4 h-4 ml-5`}></button>
+                  </div>
+                  <div className={`${s.line} grow`}></div>
+                </div>
+                <div className={`${s.suggestionList} flex flex-wrap justify-center items-center`}>
+                  {suggestions.map((suggestion, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleClick(suggestion.text)}
+                      className="mb-2 mr-2 last:mr-0 px-3 py-[5px] bg-white text-primary-600 text-xs font-medium border-solid border border-gray-200 rounded-lg cursor-pointer hover:shadow-sm hover:border-gray-300">
+                      {suggestion.text}
+                    </button>
+                  ))}
+                </div>
+              </div>)}
 
             <div className='p-[5.5px] max-h-[150px] bg-white border-[1.5px] border-gray-200 rounded-xl overflow-y-auto'>
               {

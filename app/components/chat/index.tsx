@@ -192,6 +192,8 @@ const Chat: FC<IChatProps> = ({
                   {suggestions.slice(0, 3).map((suggestion, index) => (
                     <button
                       key={index}
+                      onKeyUp={handleKeyUp}
+                      onKeyDown={handleKeyDown}
                       onClick={() => handleClick(suggestion.text)}
                       className="mb-2 mr-2 last:mr-0 px-3 py-[5px] bg-white text-primary-600 text-xs font-medium border-solid border border-gray-200 rounded-lg cursor-pointer hover:shadow-sm hover:border-gray-300">
                       {suggestion.text}

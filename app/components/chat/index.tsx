@@ -117,6 +117,13 @@ const Chat: FC<IChatProps> = ({
       e.preventDefault()
     }
   }
+
+  const handleKeyPress = (e: any) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSend()
+    }
+  }
   // 点击问题时将问题填入query
   const handleClick = (text: string) => {
     setQuery(prevQuery => `${prevQuery} ${text}`)
@@ -192,6 +199,7 @@ const Chat: FC<IChatProps> = ({
                   {suggestions.slice(0, 3).map((suggestion, index) => (
                     <button
                       key={index}
+                      onKeyPress={handleKeyPress}
                       onKeyUp={handleKeyUp}
                       onKeyDown={handleKeyDown}
                       onClick={() => handleClick(suggestion.text)}
@@ -233,6 +241,7 @@ const Chat: FC<IChatProps> = ({
                 `}
                 value={query}
                 onChange={handleContentChange}
+                onKeyPress={handleKeyPress}
                 onKeyUp={handleKeyUp}
                 onKeyDown={handleKeyDown}
                 autoSize

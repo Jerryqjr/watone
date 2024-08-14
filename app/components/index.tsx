@@ -10,7 +10,7 @@ import Toast from '@/app/components/base/toast'
 import Sidebar from '@/app/components/sidebar'
 import ConfigSence from '@/app/components/config-scence'
 import Header from '@/app/components/header'
-import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, sendChatMessage, updateFeedback } from '@/service'
+import { deleteConversation, fetchAppParams, fetchChatList, fetchConversations, generationConversationName, sendChatMessage, updateFeedback } from '@/service'
 import type { ChatItem, ConversationItem, Feedbacktype, PromptConfig, VisionFile, VisionSettings } from '@/types/app'
 import { Resolution, TransferMethod, WorkflowRunningStatus } from '@/types/app'
 import Chat from '@/app/components/chat'
@@ -76,7 +76,6 @@ const Main: FC = () => {
     setCurrInputs,
     setNewConversationInfo,
     setExistConversationInfo,
-    deleteConversation,
   } = useConversation()
 
   const [conversationIdChangeBecauseOfNew, setConversationIdChangeBecauseOfNew, getConversationIdChangeBecauseOfNew] = useGetState(false)
@@ -591,6 +590,45 @@ const Main: FC = () => {
     notify({ type: 'success', message: t('common.api.success') })
   }
 
+  const handleDeleteConversation = async (id: string) => {
+    try {
+      // 检查 ID 是否有效
+      if (id === '-1') {
+        // 如果 ID 是 -1，直接从本地列表中删除，不发送请求
+        setConversationList(prevList => prevList.filter(item => item.id !== id))
+        console.log('新建对话未保存，直接从列表中删除')
+        return
+      }
+
+      // 如果列表中只有一项，不允许删除
+      if (conversationList.length <= 1) {
+        console.error('无法删除，因为对话列表中只有一项。')
+        return
+      }
+
+      // 调用删除对话的 API
+      await deleteConversation(id)
+
+      // 更新本地状态，移除已删除的对话
+      setConversationList(prevList => prevList.filter(item => item.id !== id))
+
+      // 如果删除的是当前对话，选择另一个对话或清空当前对话
+      if (currConversationId === id) {
+        if (conversationList.length > 1) {
+          const nextConversation = conversationList.find(item => item.id !== id)
+          if (nextConversation)
+            handleConversationIdChange(nextConversation.id)
+        }
+        else {
+          handleConversationIdChange('') // 如果只有一项且已删除，清空当前对话
+        }
+      }
+    }
+    catch (error) {
+      console.error(`删除对话失败 id为 ${id}:`, error)
+    }
+  }
+
   const renderSidebar = () => {
     if (!APP_ID || !APP_INFO || !promptConfig)
       return null
@@ -600,7 +638,7 @@ const Main: FC = () => {
         onCurrentIdChange={handleConversationIdChange}
         currentId={currConversationId}
         copyRight={APP_INFO.copyright || APP_INFO.title}
-        onDelete={deleteConversation} // 传入 deleteConversation 函数
+        onDelete={handleDeleteConversation}
       />
     )
   }

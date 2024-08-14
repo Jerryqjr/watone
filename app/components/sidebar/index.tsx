@@ -32,9 +32,13 @@ const Sidebar: FC<ISidebarProps> = ({
   onDelete,
 }) => {
   const { t } = useTranslation()
-  const handleDelete = (id: string) => {
-    // console.log('Deleting conversation with id:', id)
-    onDelete(id)
+  const handleDelete = async (id: string) => {
+    try {
+      await onDelete(id)
+    }
+    catch (error) {
+      console.error(`删除信息失败 id为: ${id}:`, error)
+    }
   }
   return (
     <div

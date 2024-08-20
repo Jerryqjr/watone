@@ -1,0 +1,13 @@
+.micOnIcon {
+    position: relative;
+    background: url(./icons/mic-on.svg);
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+}
+
+.micOffIcon {
+    position: relative;
+    background: url(./icons/mic-off.svg);
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+}

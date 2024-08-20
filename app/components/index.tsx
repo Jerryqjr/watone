@@ -596,15 +596,12 @@ const Main: FC = () => {
       if (id === '-1') {
         // 如果 ID 是 -1，直接从本地列表中删除，不发送请求
         setConversationList(prevList => prevList.filter(item => item.id !== id))
-        console.log('新建对话未保存，直接从列表中删除')
         return
       }
 
       // 如果列表中只有一项，不允许删除
-      if (conversationList.length <= 1) {
-        console.error('无法删除，因为对话列表中只有一项。')
+      if (conversationList.length <= 1)
         return
-      }
 
       // 调用删除对话的 API
       await deleteConversation(id)

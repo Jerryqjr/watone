@@ -3,8 +3,8 @@ export const APP_ID = `${process.env.NEXT_PUBLIC_APP_ID}`
 export const API_KEY = `${process.env.NEXT_PUBLIC_APP_KEY}`
 export const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`
 export const APP_INFO: AppInfo = {
-  title: '华通人',
-  description: '问答华通云公司相关数据的机器人',
+  title: '',
+  description: '您的专属客服助手，可帮助您快速了解华通云公司信息、产品、服务、解决方案等信息。',
   copyright: '',
   privacy_policy: '',
   default_language: 'zh-Hans',

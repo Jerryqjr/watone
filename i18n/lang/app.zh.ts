@@ -1,6 +1,6 @@
 const translation = {
   common: {
-    welcome: '欢迎使用',
+    welcome: '华通小青',
     appUnavailable: '应用不可用',
     appUnkonwError: '应用不可用',
   },

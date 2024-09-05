@@ -21,20 +21,13 @@ const TemplateVarPanel: FC<ITemplateVarPanelProps> = ({
   isFold,
 }) => {
   return (
-    <div className={cn(isFold ? 'border border-indigo-100' : s.boxShodow, className, 'rounded-xl ')}
-    style={{
-      backgroundImage: `url('https://telegraph-image-6e3.pages.dev/file/21a7c2c17252e7f0cc23e.png')`,
-      height: 'auto',
-      backgroundSize: 'auto 100%',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'right 30px bottom',
-    }}
+    <div className={cn(isFold ? `border border-indigo-100 ${s.charcater}` : s.character, s.boxShodow, className, 'rounded-xl ')}
     >
       {/* header */}
       <div
         className={cn(isFold && 'rounded-b-xl', 'rounded-t-xl px-6 py-4 text-xs')}
       >
-        
+
         {header}
       </div>
       {/* body */}
